@@ -1,0 +1,108 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, CODE, READONLY
+    2 00000000         ENTRY
+    3 00000000         START
+    4 00000000         
+    5 00000000 E3A00000        MOV              R0, #0      ; R0 = count of 0s
+    6 00000004 E3A01000        MOV              R1, #0      ; R1 = count of 1s
+    7 00000008 E59F2024        LDR              R2, =bits_id ; Load the address
+                                                             of the input into 
+                                                            R2
+    8 0000000C E5922000        LDR              R2, [R2]    ; Load the last 5 d
+                                                            igits of BITS ID in
+                                                             decimal into R2
+    9 00000010         
+   10 00000010         LOOP
+   11 00000010 E3520000        CMP              R2, #0
+   12 00000014 0A000004        BEQ              END         ; If number has ful
+                                                            ly processed then e
+                                                            xit the loop
+   13 00000018         
+   14 00000018 E2124001        ANDS             R4, R2, #1  ; Extract LSB into 
+                                                            R4
+   15 0000001C 02800001        ADDEQ            R0, R0, #1  ; If LSB == 0, incr
+                                                            ement R0 (count of 
+                                                            0s)
+   16 00000020 12811001        ADDNE            R1, R1, #1  ; If LSB == 1, incr
+                                                            ement R1 (count of 
+                                                            1s)
+   17 00000024         
+   18 00000024 E1A020A2        LSR              R2, R2, #1  ; 1 bit Right shift
+                                                             R2 to process the 
+                                                            next bit
+   19 00000028 EAFFFFF8        B                LOOP
+   20 0000002C         
+   21 0000002C         END
+   22 0000002C EAFFFFFE        B                END
+   23 00000030         
+   24 00000030 00000606 
+                       bits_id DCD              01542       ; Last 5 digits of 
+                                                            BITS ID
+   25 00000034                 END
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --apcs=interwork --depend=.\o
+bjects\main.d -o.\objects\main.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMS
+IS\Include -IC:\Keil_v5\ARM\INC\Philips --predefine="__EVAL SETA 1" --predefine
+="__UVISION_VERSION SETA 526" --list=.\listings\main.lst main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+END 0000002C
+
+Symbol: END
+   Definitions
+      At line 21 in file main.s
+   Uses
+      At line 12 in file main.s
+      At line 22 in file main.s
+
+ENTRY 00000000
+
+Symbol: ENTRY
+   Definitions
+      At line 2 in file main.s
+   Uses
+      None
+Comment: ENTRY unused
+LOOP 00000010
+
+Symbol: LOOP
+   Definitions
+      At line 10 in file main.s
+   Uses
+      At line 19 in file main.s
+Comment: LOOP used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file main.s
+   Uses
+      None
+Comment: RESET unused
+START 00000000
+
+Symbol: START
+   Definitions
+      At line 3 in file main.s
+   Uses
+      None
+Comment: START unused
+bits_id 00000030
+
+Symbol: bits_id
+   Definitions
+      At line 24 in file main.s
+   Uses
+      At line 7 in file main.s
+Comment: bits_id used once
+6 symbols
+340 symbols in table
